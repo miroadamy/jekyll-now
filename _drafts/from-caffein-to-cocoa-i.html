@@ -1,0 +1,60 @@
+---
+layout: post
+title: From Caffein to Cocoa I
+date: 
+type: post
+published: false
+status: draft
+categories: []
+tags: []
+meta:
+  _edit_last: '369559'
+author:
+  login: miroadamy
+  email: miro.adamy+blog@gmail.com
+  display_name: miroadamy
+  first_name: ''
+  last_name: ''
+---
+<p>... Java guy in Cocoaland</p>
+<p>Since about month, I have been stealing hour here and there in the evening to finally overcome<br />
+the entry barrier and cross the chasm between Mac power user to Mac developer.</p>
+<p>This step includes mastering three major areas:<br />
+- development tools (starting with XCode) and workflows<br />
+- Cocoa framework (and few additional ones)<br />
+- Objective C</p>
+<p>I will start with the last one: the Objective C is very small piece compared to other two, especially to frameworks) and is a pre-requisite to do anything serious on a Mac, as this is the language used to be OS functionality wrappers<br />
+(frameworks), starting with Cocoa.</p>
+<p>Disclaimer: The following is written from a perspective of developer who is very comfortable with Java (both as<br />
+a language and as platform, specially J2EE) and C# / .NET framework. This developer is former C and<br />
+C++ programmer (isn't anyone above age of 35 ?), but did not touch either of them for last decade and<br />
+unlike C, he never really liked C++. Has also working knowledge of Python and Ruby, prefers the aesthetics<br />
+of the later and keeps discovering old Lisp in both of them. Your mileage may vary.</p>
+<p>First encounter with Objective C can be expressed with simple sentence: "What a weird syntax". Lots of At-signs, brackets in all wrong places (meaning elsewhere than array indexing), plusses and minuses in front of functions.</p>
+<p>After realizing that Objective C is proper superset of C, and every C program</p>
+<p>Unlike in Java, there is no required relation between class name and file that contains it source code.<br />
+This means that the class Person does not have to live in file Person-dot-something. It is however a good<br />
+idea to keep that naming strategy. This is very similar as in C# where this relation is encouraged, but not enforced.<br />
+Also, unlike in Java/C#, you will usually have two files: Person.h - the declaration of the class interface<br />
+and Person.m - the implementation (extension .m means this is Objective C file).</p>
+<p>Any class using the Person, would import the Person.h to get declaration of class members, and the functionality would<br />
+be delivered by linking with the compiled version of Person.m (usually Person.o) In Java there would be just single Person.java, which would be used for both declaration and implementation part.</p>
+<p>The declaration of the Person could look like this:</p>
+<p>Everything between @class and @end contributed to declaration. The keywords @something were chosen so that they<br />
+do not collide with C identifiers and syntactic units.</p>
+<p>The list of declaration after @class are member variable. They are protected (invisible from clients but visible from<br />
+subclasses) by default. This can be easily changed with the directives @public/@protected/@private inserted between<br />
+definition. They work as "case labels" - switch the access level for all consequitive declarations</p>
+<p>Eveything outside the curly brackets are methods declarations. First thing to note is that every method starts with either '+' or '-' sign. The '+/-' is used to distinguished the class methods (aka static methods) that do NOT operate on instance from instance methods ('-') that are always attached to object instance. The choice of '+' / '-' was<br />
+bothering me at the beginning because it was mentally colliding with '+' being public visibility and '-' being<br />
+private as it is used in many UML modeling tools. It does not work this way. In Objective-C, all declared methods<br />
+are public. If you want to hide method, simply do not declare it, just implement it in the dot-m file. Right after the +/- there is return data type in parenthesis, looking like type cast. Which it actually in many cases is :-).</p>
+<p>Second thing to notice is presence of methods declared with same name as the member variables. This is Objective-C language idiom how to implement getters and setters. Objective C is somewhere in the middle between Java and C#.<br />
+Instead of (for int variable fooBar) creating methods getFooBar / setFooBar, or declaring property get / set methods in C#,<br />
+you declare two functions:<br />
+- (int) fooBar;<br />
+- (void) setFooBar: (int) value;</p>
+<p>Notable is lack of parenthesis for getter and colon after 'setFooBar'. This colon is actually part of the method name<br />
+and indicates that the method has an argument - (int) value. You will use the colon when invoking the method.</p>
+<p>As in Java, there is root object, which is either Object, or - if you use Cocoa, NSObject. The import of Foundation.h<br />
+contains declaration of the root object. We will get to the reason for NS (and few other)</p>
